@@ -363,3 +363,32 @@ The mock mode is deliberately deterministic. This makes the graded baseline repr
 Structured response
 
 Pydantic validates every API response. This prevents malformed responses from leaving the service even though the mock generation path itself is deterministic.
+
+C:\Users\asmak\OneDrive\Desktop\Zepto-ai-ml-capstone> cd support_assistant
+PS C:\Users\asmak\OneDrive\Desktop\Zepto-ai-ml-capstone\support_assistant> Invoke-RestMethod `
+>>   -Uri "http://127.0.0.1:8000/ask" `
+>>   -Method Post `
+>>   -ContentType "application/json" `
+>>   -Body '{"query":"What is the capital of France?"}'
+>> 
+
+answer                                                      sources confidence
+------                                                      ------- ----------
+I can only answer questions about Zepto policies right now. {}             1.0
+
+
+PS C:\Users\asmak\OneDrive\Desktop\Zepto-ai-ml-capstone\support_assistant> Invoke-RestMethod `
+>>   -Uri "http://127.0.0.1:8000/ask" `
+>>   -Method Post `
+>>   -ContentType "application/json" `
+>>   -Body '{"query":"What is the delivery fee for orders below INR 149?"}' | ConvertTo-Json
+>> 
+{
+    "answer":  "Based on the retrieved context: Delivery Policy: \"Zepto delivers grocery and household essentials to serviceable pin codes within 10 to 30 minutes of order confirmation, depending on the customer\u0027s delivery zone and current order vo",
+    "sources":  [
+                    "doc_01",
+                    "doc_05",
+                    "doc_07"
+                ],
+    "confidence":  1.0
+}
